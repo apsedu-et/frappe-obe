@@ -1,0 +1,50 @@
+{
+ "actions": [],
+ "creation": "2026-01-01 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "po",
+  "attainment",
+  "target",
+  "gap"
+ ],
+ "fields": [
+  {
+   "fieldname": "po",
+   "fieldtype": "Data",
+   "label": "Po",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "attainment",
+   "fieldtype": "Float",
+   "label": "Attainment",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "target",
+   "fieldtype": "Float",
+   "label": "Target",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "gap",
+   "fieldtype": "Float",
+   "label": "Gap",
+   "in_list_view": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-01-01 00:00:00",
+ "modified_by": "Administrator",
+ "module": "OBE",
+ "name": "PO Attainment Row",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "istable": 1
+}

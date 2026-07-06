@@ -1,0 +1,46 @@
+{
+ "actions": [],
+ "creation": "2026-01-01 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "q_no",
+  "co_code",
+  "max_marks"
+ ],
+ "fields": [
+  {
+   "fieldname": "q_no",
+   "fieldtype": "Data",
+   "label": "Q#",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "co_code",
+   "fieldtype": "Data",
+   "label": "CO",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "max_marks",
+   "fieldtype": "Float",
+   "label": "Max Marks",
+   "reqd": 1,
+   "in_list_view": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-01-01 00:00:00",
+ "modified_by": "Administrator",
+ "module": "OBE",
+ "name": "Assessment Question",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "istable": 1
+}

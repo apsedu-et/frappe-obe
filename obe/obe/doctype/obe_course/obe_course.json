@@ -1,0 +1,81 @@
+{
+ "actions": [],
+ "creation": "2026-01-01 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "course_code",
+  "title",
+  "program",
+  "semester",
+  "outcomes",
+  "co_po"
+ ],
+ "fields": [
+  {
+   "fieldname": "course_code",
+   "fieldtype": "Data",
+   "label": "Course Code",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "program",
+   "fieldtype": "Link",
+   "label": "Program",
+   "options": "OBE Program",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "semester",
+   "fieldtype": "Int",
+   "label": "Semester"
+  },
+  {
+   "fieldname": "outcomes",
+   "fieldtype": "Table",
+   "label": "Course Outcomes",
+   "options": "Course Outcome"
+  },
+  {
+   "fieldname": "co_po",
+   "fieldtype": "Table",
+   "label": "CO-PO Matrix",
+   "options": "CO PO Map"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-01-01 00:00:00",
+ "modified_by": "Administrator",
+ "module": "OBE",
+ "name": "OBE Course",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "autoname": "field:course_code",
+ "title_field": "title"
+}

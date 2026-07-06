@@ -1,0 +1,37 @@
+{
+ "actions": [],
+ "creation": "2026-01-01 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "co_code",
+  "statement"
+ ],
+ "fields": [
+  {
+   "fieldname": "co_code",
+   "fieldtype": "Data",
+   "label": "CO",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "statement",
+   "fieldtype": "Small Text",
+   "label": "Statement",
+   "in_list_view": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-01-01 00:00:00",
+ "modified_by": "Administrator",
+ "module": "OBE",
+ "name": "Course Outcome",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "istable": 1
+}
