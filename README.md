@@ -1,13 +1,22 @@
-# obe — OBE / CO-PO Attainment
+# obe — Outcome-Based Education (OBE) / CO-PO Attainment
 
 A [Frappe](https://frappeframework.com) app that turns student marks into
-**Course-Outcome (CO) → Program-Outcome (PO) attainment** — the outcome numbers
-NBA (and NAAC Criterion II) score an engineering programme on.
+**Course Outcome (CO) → Programme Outcome (PO) attainment** — the outcome scores
+used for Outcome-Based Education (OBE) reporting and programme quality reviews.
 
-It is deliberately **self-contained**: it defines its own Program/Course/Student/
-marks model and does **not** depend on ERPNext or the Frappe Education app, so it
-installs on any bench and is reusable by any college. Frappe is the only runtime
-dependency. Licensed **AGPL-3.0**.
+Abbreviations used throughout:
+
+- **OBE** — Outcome-Based Education
+- **CO** — Course Outcome (what a single course teaches; 3–6 per course)
+- **PO** — Programme Outcome (a graduate attribute the whole programme targets)
+- **PSO** — Programme-Specific Outcome (a PO specific to one programme)
+- **CIE** — Continuous Internal Evaluation (internal/in-semester assessments)
+- **SEE** — Semester-End Examination (the final/external exam)
+
+It is deliberately **self-contained**: it defines its own programme / course /
+student / marks model and does **not** depend on ERPNext or the Frappe Education
+app, so it installs on any bench and is reusable by any institution. Frappe is the
+only runtime dependency. Licensed **AGPL-3.0**.
 
 - Repo: `apsedu-et/obe` — the repo name must stay `obe` (Frappe derives the app
   module name from the repo directory).
@@ -15,12 +24,13 @@ dependency. Licensed **AGPL-3.0**.
 
 ---
 
-## Concepts (for the non-NBA reader)
+## Concepts
 
-- **PO / PSO** — Programme Outcomes: the graduate attributes every student should
-  have by graduation. The 12 standard NBA/Washington-Accord POs are seeded on
-  install; PSOs (programme-specific) are added per programme.
-- **CO** — Course Outcomes: 3–6 per course, what a specific course teaches.
+- **PO / PSO** — the graduate attributes every student should have by graduation.
+  A **default set of 12 Programme Outcomes** (the common engineering
+  graduate-attribute set) is seeded on install; **replace or extend it with the
+  outcomes your own framework defines**, and add PSOs per programme.
+- **CO** — the outcomes of an individual course.
 - **CO-PO matrix** — how strongly each CO contributes to each PO (strength 1–3).
 - **Attainment** — a 0–3 score of how well an outcome was actually achieved,
   computed from marks (**direct**) and course-exit surveys (**indirect**).
@@ -77,10 +87,10 @@ All math lives in **`obe/attainment.py`** — pure functions, **no Frappe import
 so it is unit-tested in isolation:
 
 ```bash
-python3 -m pytest obe/tests/test_attainment.py -q      # the accreditation-critical path
+python3 -m pytest obe/tests/test_attainment.py -q      # the core computation
 ```
 
-Levels are on the NBA **0–3** scale. Everything below is configurable on the
+Levels are on a **0–3** scale. Everything below is configurable on the
 **OBE Program** (defaults shown):
 
 1. **Direct, per CO, per assessment** — a student *attains* a CO if they score
@@ -119,7 +129,8 @@ Wide format in, normalised rows out (see `obe/api.py`). Each form has
 
 An **Attainment Run** stores the CO table (direct / indirect / final) and the PO
 table (attainment / target / gap). Print or export those via Frappe's built-in
-report/print. A 1:1 official **NBA SAR** print format is a v2 item (see Roadmap).
+report/print. Producing report templates that match a specific review body's
+format is left to you (see Roadmap).
 
 ---
 
@@ -138,8 +149,8 @@ points that took a few iterations to get right:
 - `apps.json` lists erpnext + this repo; the URL's last path segment **must** be
   `obe` (= the module name), which is why the repo is named `obe`.
 - The playbook **asserts the built image contains `erpnext` + `obe`** before
-  bringing anything up (a mis-built image once took ERPNext offline — never again).
-- Isolated project means a bad OBE build can't touch the shared ERPNext stack.
+  bringing anything up (a mis-built image once took the shared stack offline).
+- Isolated project means a bad OBE build can't touch other apps' stacks.
 
 ### Plain bench (dev / standalone site)
 
@@ -152,9 +163,9 @@ bench new-site obe.localhost --install-app obe
 
 The **OBE workspace** and a **worked demo** (a programme, a course with COs + a
 CO-PO matrix, CIE/SEE marks, a survey, and a computed Attainment Run) are seeded
-by a runtime script (`scripts/seed_demo.py`, run via `bench console`). They live
-in the site DB, so they survive restarts but not a full site reinstall — baking
-the workspace into the app as a fixture is a small follow-up.
+by `scripts/seed_demo.py`, run via `bench console`. They live in the site DB, so
+they survive restarts but not a full site reinstall — baking the workspace into
+the app as a fixture is a small follow-up.
 
 ---
 
@@ -172,14 +183,13 @@ the workspace into the app as a fixture is a small follow-up.
 ## Roadmap (v2)
 
 - Connectors: pull marks from Moodle / ERPNext Education, surveys from LimeSurvey.
-- **NBA SAR print formats validated 1:1** against the current GAPC v4.0 manual.
-- Confirm the seeded **PO set/count** against the current NBA manual (GAPC v4.0
-  reportedly consolidates the 12 POs — verify before relying on the seeded set).
+- Printable outcome-report templates matching your review body's format.
+- Make the seeded PO set configurable per framework; ship as an editable fixture.
 - Bake the workspace + fixtures into the app so a fresh install is turnkey.
 
 ## Caveat
 
 v1 **computes** attainment correctly (unit-tested) and exports clean tables, but
-the exact NBA SAR table **format** is accreditation-critical and version-drifting.
-**Do not submit v1 output to NBA unchecked** — validate the format and PO set
-against the current manual first.
+report **formats** and the exact outcome set differ by framework and change over
+time. Validate the output format and the PO set against your own requirements
+before relying on it for a formal submission.
